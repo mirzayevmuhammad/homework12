@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  nest-app:
+    build:
+      context: .
+    ports:
+      - '3000:3000'
+    depends_on:
+      - postgres
+    command: sh -c 'yarn start:prod'
+
+  postgres:
+    image: postgres:17.5
+    environment:
+      POSTGRES_USER: postgres_user
+      POSTGRES_PASSWORD: postgres_password
+      POSTGRES_DB: my_database
+    env_file:
+      - ./1/env
+    ports:
+      - '5433:5432'
